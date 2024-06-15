@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    14.06.24
+// Date last edited:    15.06.24
 // References:          https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 //////////////////////////////////////////////////
 using System;
@@ -13,26 +13,11 @@ using UnityEngine;
 
 namespace Meatwagon
 {
-    // Keeps a list of all the NavTiles in the scene and is used to query whether valid paths between them exist or not.
+    // Handles all the _navTiles within the scene and can be used to calculate the shortest paths between them.
     public class NavController : MonoBehaviour
     {
-        public List<NavTile> NavTiles;
-
-        public bool DoesNavTileExistInList(NavTile tile)
-        {
-            foreach (NavTile listTile in NavTiles)
-            {
-                if (listTile == tile)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-
-        public List<NavTile> CalculateShortestPathToTile(NavTile startTile, NavTile goalTile)
+        // Returns a list of NavTiles representing the shortist path from the start (first) tile to the goal (final) tile - returns null if no valid paths exist between the two.
+        public List<NavTile> GetShortestPathBetweenTiles(NavTile startTile, NavTile goalTile)
         {
             if (startTile == goalTile)
             {
@@ -41,55 +26,48 @@ namespace Meatwagon
             }
             if (DoesNavTileExistInList(startTile) == false)
             {
-                Debug.LogWarning("The startTile argument provided to the CalculateShortestPathToTile() function doesn't exist within the NavTiles list of the NavController.");
+                Debug.LogWarning("The startTile argument provided to the GetShortestPathBetweenTiles() function doesn't exist within the _navTiles list of the NavController.");
                 return null;
             }
             if (DoesNavTileExistInList(goalTile) == false)
             {
-                Debug.LogWarning("The goalTile argument provided to the CalculateShortestPathToTile() function doesn't exist within the NavTiles list of the NavController.");
+                Debug.LogWarning("The goalTile argument provided to the GetShortestPathBetweenTiles() function doesn't exist within the _navTiles list of the NavController.");
                 return null;
             }
 
-            // Outcomes:
-            // - Find a valid path between the two tiles and return the shortest path
-            // - Find there is no valid path between the two tiles and return null/empty list?
+            // Used as the default value for tiles that haven't been visited yet during the algorithm.
+            int infiniteDistance = 9999;
 
-            int infiniteDistance = 9999; // Used as the default value for tiles that haven't been visited.
-
-            // Steps 1 + 2
-            List<NavTile> unvisitedSet = new List<NavTile>();
-            int currentNodeIndex = -1;
-            for (int i = 0; i < NavTiles.Count; ++i)
+            // Create a set of unvisited tiles, giving the start tile an initial distance of 0 and all others a distance of infinity.
+            List<NavTile> unvisitedTiles = new List<NavTile>();
+            for (int i = 0; i < _navTiles.Count; ++i)
             {
-                if (NavTiles[i] == startTile)
+                if (_navTiles[i] == startTile)
                 {
-                    NavTiles[i].ShortestDistance = 0; // Set starting tile distance value to 0;
-                    Debug.Log("Starting node index is: " + currentNodeIndex);
+                    _navTiles[i].DijkstraShortestDistance = 0;
                 }
                 else
                 {
-                    NavTiles[i].ShortestDistance = infiniteDistance; // Counts as the 'infinite distance' value in this case for Dijkstra's algorithm.
+                    _navTiles[i].DijkstraShortestDistance = infiniteDistance;
                 }
-
-                unvisitedSet.Add(NavTiles[i]);
-                Debug.Log("Added node to unvisited set with name " + NavTiles[i].name + " and starting distance value of " + NavTiles[i].ShortestDistance);
+                unvisitedTiles.Add(_navTiles[i]);
             }
 
-
             List<NavTile> shortestPath = new List<NavTile>();
-            // Step 3
+            // The index of the tile with the smallest distance value within the unvisted set.
+            int shortestPathTileIndex;
             while (shortestPath.Any() == false)
             {
                 // If the unvisited set is empty and no path has been found, there's no valid path between the start and goal tiles.
-                if (unvisitedSet.Any() == false)
+                if (unvisitedTiles.Any() == false)
                 {
                     return null;
                 }
                 // Else if all the remaining distances in the unvisited set are equal to infinity, no further tiles can be reached and no valid path exists.
                 bool allDistancesAreInfinite = true;
-                foreach (NavTile tile in unvisitedSet)
+                foreach (NavTile tile in unvisitedTiles)
                 {
-                    if (tile.ShortestDistance != infiniteDistance)
+                    if (tile.DijkstraShortestDistance != infiniteDistance)
                     {
                         allDistancesAreInfinite = false;
                         break;
@@ -101,43 +79,71 @@ namespace Meatwagon
                 }
 
                 // Get the node in the unvisited set with the shortest distance.
-                currentNodeIndex = 0;
-                for (int i = 0; i < unvisitedSet.Count; i++)
+                shortestPathTileIndex = 0;
+                for (int i = 0; i < unvisitedTiles.Count; i++)
                 {
-                    if (unvisitedSet[i].ShortestDistance < unvisitedSet[currentNodeIndex].ShortestDistance)
+                    if (unvisitedTiles[i].DijkstraShortestDistance < unvisitedTiles[shortestPathTileIndex].DijkstraShortestDistance)
                     {
-                        currentNodeIndex = i;
+                        shortestPathTileIndex = i;
                     }
                 }
-                if (unvisitedSet[currentNodeIndex] == goalTile)
+
+                // If the goal tile currently has the smallest distance, the shortest path between it and the starting tile has been found.
+                if (unvisitedTiles[shortestPathTileIndex] == goalTile)
                 {
                     shortestPath = GetShortestPathOnceCalculated(startTile, goalTile);
                     return shortestPath;
                 }
 
-                // Step 4
-                foreach (NavTile adjacentTile in unvisitedSet[currentNodeIndex].ConnectedTiles)
+                // Compares the distance values of the unvisited neighbours with the distance if crossed into from the current tile and updates their distance value if the latter is smaller. 
+                foreach (NavTile connectedTile in unvisitedTiles[shortestPathTileIndex].GetConnectedTiles())
                 {
-                    if (unvisitedSet[currentNodeIndex].ShortestDistance + 1 < adjacentTile.ShortestDistance)
+                    if (unvisitedTiles[shortestPathTileIndex].DijkstraShortestDistance + connectedTile.TraversalCost < connectedTile.DijkstraShortestDistance)
                     {
-                        adjacentTile.ShortestDistance = unvisitedSet[currentNodeIndex].ShortestDistance + 1;
+                        connectedTile.DijkstraShortestDistance = unvisitedTiles[shortestPathTileIndex].DijkstraShortestDistance + connectedTile.TraversalCost;
                     }
                 }
 
-                // Step 5
-                unvisitedSet.Remove(unvisitedSet[currentNodeIndex]);
+                // Removes the current tile from the unvisited set.
+                unvisitedTiles.Remove(unvisitedTiles[shortestPathTileIndex]);
             }
 
             return null;
         }
 
+        public bool DoesNavTileExistInList(NavTile tile)
+        {
+            foreach (NavTile listTile in _navTiles)
+            {
+                if (listTile == tile)
+                {
+                    return true;
+                }
+            }
 
+            return false;
+        }
 
+        private List<NavTile> _navTiles;
+        private NavTile _selectedStartTile;
+        private NavTile _selectedGoalTile;
+
+        private List<NavTile> FindAllNavTilesInScene()
+        {
+            List<NavTile> navTiles = new List<NavTile>();
+            foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
+            {
+                navTiles.Add(tile);
+            }
+
+            return navTiles;
+        }
+
+        // Returns an ordered list from the start tile to the goal tile representing the shortest path between the two once all of the appropriate shortest distance values have been calculated via Dijkstra's Algorithm.
         private List<NavTile> GetShortestPathOnceCalculated(NavTile startTile, NavTile goalTile)
         {
             List<NavTile> shortestPath = new List<NavTile>();
             NavTile shortestPathTile = goalTile;
-
             while (shortestPath.Any() == false || shortestPath[0] != startTile)
             {
                 shortestPath.Insert(0, shortestPathTile);
@@ -147,10 +153,10 @@ namespace Meatwagon
                     break;
                 }
 
-                NavTile nextShortestPathTile = shortestPathTile.ConnectedTiles[0];
-                foreach (NavTile adjacentTile in shortestPathTile.ConnectedTiles)
+                NavTile nextShortestPathTile = shortestPathTile.GetConnectedTiles()[0];
+                foreach (NavTile adjacentTile in shortestPathTile.GetConnectedTiles())
                 {
-                    if (adjacentTile.ShortestDistance < nextShortestPathTile.ShortestDistance)
+                    if (adjacentTile.DijkstraShortestDistance < nextShortestPathTile.DijkstraShortestDistance)
                     {
                         nextShortestPathTile = adjacentTile;
                     }
@@ -159,82 +165,106 @@ namespace Meatwagon
                 shortestPathTile = nextShortestPathTile;
             }
 
+            // DEBUG
+            int pathTraversalCostTotal = 0;
+            // Skips the cost of the first tile - traversal cost only matters when moving into each tile, not out of.
+            for (int i = 1; i < shortestPath.Count; ++i)
+            {
+                pathTraversalCostTotal += shortestPath[i].TraversalCost;
+            }
+            Debug.Log("Starting tile is: " + shortestPath[0] + ", goal tile is: " + shortestPath[shortestPath.Count - 1]);
+            Debug.Log("The total traversal cost of the path is: " + pathTraversalCostTotal);
+
+
             return shortestPath;
-        }
-        private NavTile SelectedTile;
-
-
-        private void Awake()
-        {
-            //foreach (NavTile tile in NavTiles)
-            //{
-            //    if (tile == null)
-            //    {
-            //        Debug.LogException(new NullReferenceException("An item in the NavTiles list equals null."));
-            //    }
-            //}
         }
 
         private void Start()
         {
-            NavTiles = new List<NavTile>();
-            foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
-            {
-                NavTiles.Add(tile);
-            }
-
-            //NavTile startTile = NavTiles[3];
-            //NavTile goalTile = NavTiles[0];
-
-            //List<NavTile> testPath = CalculateShortestPathToTile(startTile, goalTile); // DEBUG!
-            //Debug.Log("The shortest path between tiles " + startTile.name + " and " + goalTile.name + " is:");
-            //foreach (NavTile tile in testPath)
-            //{
-            //    Debug.Log(tile.name);
-            //}
-
+            _navTiles = FindAllNavTilesInScene();
         }
 
         private void Update()
         {
-            foreach (NavTile tile in NavTiles)
-            {
-                if (tile.IsMouseOver())
-                {
-                    if(Input.GetMouseButtonDown(0))
-                    {
-                        if (SelectedTile != null)
-                        {
-                            SelectedTile.SetSelectedState(NavTile.SelectedState.Default);
-                        }
+            UpdateSeletedTiles();
+        }
 
-                        
-                        tile.SetSelectedState(NavTile.SelectedState.Selected);
-                        SelectedTile = tile;
+        private void UpdateSeletedTiles()
+        {
+            bool selectedTilesChanged = false;
+            if (Input.GetMouseButtonDown(0))
+            {
+                bool mouseNotOverAnyTiles = true;
+
+                // Allows for two tiles to be selected at a time via mouseclick.
+                foreach (NavTile tile in _navTiles)
+                {
+                    if (tile.IsMouseOver())
+                    {
+                        mouseNotOverAnyTiles = false;
+
+                        if (tile != _selectedStartTile && tile != _selectedGoalTile)
+                        {
+                            if(_selectedStartTile == null)
+                            {
+                                _selectedStartTile = tile;
+                                _selectedStartTile.SetSelectedState(NavTile.SelectedState.Selected);
+
+                                selectedTilesChanged = true;
+                            }
+                            else if (_selectedGoalTile == null)
+                            {
+                                _selectedGoalTile = tile;
+                                _selectedGoalTile.SetSelectedState(NavTile.SelectedState.Selected);
+
+                                selectedTilesChanged = true;
+                            }            
+                        }
+                    }
+                }
+
+                if(mouseNotOverAnyTiles)
+                {
+                    ResetAllTilesToDefaultSelectedState();
+                }
+
+                // If the two selected tiles have changed, calculates and highlights the shortest valid path between them
+                if (selectedTilesChanged && _selectedStartTile != null && _selectedGoalTile != null)
+                {
+                    // Resets all non-selected tiles to default.
+                    foreach (NavTile tile in _navTiles)
+                    {
+                        if (tile.GetSelectedState() != NavTile.SelectedState.Selected)
+                        {
+                            tile.SetSelectedState(NavTile.SelectedState.Default);
+                        }
                     }
 
-                    if (tile != SelectedTile)
+                    List<NavTile> shortestPathBetweenSelected = GetShortestPathBetweenTiles(_selectedStartTile, _selectedGoalTile);
+                    if (shortestPathBetweenSelected != null)
                     {
-                        
-
-                        List<NavTile> tilePath = CalculateShortestPathToTile(SelectedTile, tile);
-                        if(tilePath != null)
+                        foreach (NavTile pathTile in shortestPathBetweenSelected)
                         {
-                            foreach(NavTile pathTile in tilePath)
+                            if (pathTile.GetSelectedState() != NavTile.SelectedState.Selected)
                             {
-                                if(pathTile != SelectedTile)
-                                {
-                                    pathTile.SetSelectedState(NavTile.SelectedState.Highlighted);
-                                }
+                                pathTile.SetSelectedState(NavTile.SelectedState.Highlighted);
                             }
                         }
                     }
-                }
-                else if(tile != SelectedTile)
-                {
-                    tile.SetSelectedState(NavTile.SelectedState.Default);
+
                 }
             }
+        }
+
+        private void ResetAllTilesToDefaultSelectedState()
+        {
+            foreach (NavTile tile in _navTiles)
+            {
+                tile.SetSelectedState(NavTile.SelectedState.Default);
+            }
+
+            _selectedStartTile = null;
+            _selectedGoalTile = null;
         }
     }
 }

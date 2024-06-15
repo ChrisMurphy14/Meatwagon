@@ -364,6 +364,7 @@
 "Assets/Scripts/Character.cs"
 "Assets/Scripts/NavController.cs"
 "Assets/Scripts/NavTile.cs"
+"Assets/Scripts/NavTileDebugText.cs"
 -langversion:9.0
 /deterministic
 /optimize-

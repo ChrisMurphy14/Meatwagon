@@ -11,11 +11,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Meatwagon
-{
-    // A tile within the scene which a character can inhabit/navigate to and from.
+{    
     [RequireComponent(typeof(BoxCollider2D))]
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(Transform))]
+    // A tile within the scene which a character can inhabit as well as navigating to and from.
     public class NavTile : MonoBehaviour
     {
         public enum SelectedState
@@ -24,12 +24,19 @@ namespace Meatwagon
             Highlighted,
             Selected
         }
-
-        public List<NavTile> ConnectedTiles;
-        public Material defaultMaterial;
-        public Material highlightMaterial;
+                
+        public Material DefaultMaterial;
+        public Material HighlightMaterial;
         public Material SelectedMaterial;
-        public int ShortestDistance;
+        // The 'cost' of moving into this tile.
+        public int TraversalCost = 1; 
+        // Used by the NavController to implement Dijkstra's pathfinding algorithm - the shortest currently-calculated distance from this tile to the starting tile
+        [HideInInspector] public int DijkstraShortestDistance; 
+
+        public List<NavTile> GetConnectedTiles()
+        {
+            return _connectedTiles;
+        }
 
         public bool IsMouseOver()
         {
@@ -42,7 +49,6 @@ namespace Meatwagon
             {
                 return false;
             }
-
         }
 
         public SelectedState GetSelectedState()
@@ -56,22 +62,20 @@ namespace Meatwagon
             {
                 case SelectedState.Default:
                     {
-                        _meshRenderer.material = defaultMaterial;
+                        _meshRenderer.material = DefaultMaterial;
                         _selectedState = SelectedState.Default;
 
                         break;
                     }
                 case SelectedState.Highlighted:
                     {
-                        _meshRenderer.material = highlightMaterial;
+                        _meshRenderer.material = HighlightMaterial;
                         _selectedState = SelectedState.Highlighted;
 
                         break;
                     }
                 case SelectedState.Selected:
                     {
-                       
-
                         _meshRenderer.material = SelectedMaterial;
                         _selectedState = SelectedState.Selected;
 
@@ -84,9 +88,8 @@ namespace Meatwagon
             }
         }
 
-
-
         private BoxCollider2D _boxCollider;
+        private List<NavTile> _connectedTiles;
         private MeshRenderer _meshRenderer;
         private SelectedState _selectedState;
 
@@ -98,67 +101,32 @@ namespace Meatwagon
 
         private void Start()
         {
+            ConnectToAdjacentTiles(1.0f);            
+        }
+
+        private void ConnectToAdjacentTiles(float maxDistance)
+        {
+            _connectedTiles = new List<NavTile>();
             foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
             {
-                if ((tile.transform.position - this.transform.position).magnitude == 1.0f)
+                if ((tile.transform.position - this.transform.position).magnitude <= maxDistance)
                 {
-                    ConnectedTiles.Add(tile);
+                    _connectedTiles.Add(tile);
                 }
             }
         }
-
-        private void Update()
-        {
-            //if (Input.GetMouseButtonDown(0))
-            //{
-            //Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //if (_boxCollider.OverlapPoint(mousePosition))
-            //{
-            //    if (Input.GetMouseButtonDown(0))
-            //    {
-            //        SetSelectedState(SelectedState.Selected);
-            //    }
-            //    else
-            //    {
-            //        SetSelectedState(SelectedState.Highlighted);
-            //    }
-            //}
-            //else if(GetSelectedState() == SelectedState.Highlighted)
-            //{
-            //    SetSelectedState(SelectedState.Default);
-            //}
-            //}
-        }
-
-
+             
         private void OnDrawGizmos()
         {
-            //Gizmos.color = UnityEngine.Color.yellow;
-            //Gizmos.DrawWireCube(this.transform.position, Vector3.one);
-
-            if (ConnectedTiles.Any() != false)
+            // Draws a blue line gizmo to show connections between tiles.
+            if (_connectedTiles != null && _connectedTiles.Any())
             {
                 Gizmos.color = UnityEngine.Color.blue;
-                foreach (NavTile connectedTile in ConnectedTiles)
+                foreach (NavTile connectedTile in _connectedTiles)
                 {
                     Gizmos.DrawLine(this.transform.position, connectedTile.GetComponent<Transform>().position);
                 }
             }
         }
     }
-
-
-    // Contains data about a one-way connection between two NavTiles.
-    //public class NavTileConnection
-    //{
-    //    public NavTile FromTile;
-    //    public NavTile TowardsTile;
-    //    //public int Cost;
-
-    //    public void DrawConnectionGizmo(Color color)
-    //    {
-    //        Gizmos.color = color;
-    //        Gizmos.DrawLine(FromTile.GetComponent<Transform>().position, TowardsTile.GetComponent<Transform>().position);
-    //    }
-    //}
 }
