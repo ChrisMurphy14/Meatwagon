@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    14.06.24
+// Date last edited:    28.06.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +28,8 @@ namespace Meatwagon
         public Material DefaultMaterial;
         public Material HighlightMaterial;
         public Material SelectedMaterial;
+        // The radius of the area around this tile within which it will connect to other tiles when the scene starts.
+        public float AdjacentTileConnectionRadius = 1.5f; 
         // The 'cost' of moving into this tile.
         public int TraversalCost = 1; 
         // Used by the NavController to implement Dijkstra's pathfinding algorithm - the shortest currently-calculated distance from this tile to the starting tile
@@ -101,7 +103,7 @@ namespace Meatwagon
 
         private void Start()
         {
-            ConnectToAdjacentTiles(1.0f);            
+            ConnectToAdjacentTiles(AdjacentTileConnectionRadius);            
         }
 
         private void ConnectToAdjacentTiles(float maxDistance)
