@@ -101,6 +101,7 @@ MonoBehaviour:
   DefaultMaterial: {fileID: 2100000, guid: a6c1e2136440dad4bb2e74690436b8ec, type: 2}
   HighlightMaterial: {fileID: 2100000, guid: ff63db824f53d1a41b136cbb25f67e9a, type: 2}
   SelectedMaterial: {fileID: 2100000, guid: 94a2ec1f87b458c4eb5b70f5b321e800, type: 2}
+  AdjacentTileConnectionRadius: 1.5
   TraversalCost: 1
   DijkstraShortestDistance: 0
 --- !u!61 &1148160947451522752
@@ -166,7 +167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4198460447662114608
 RectTransform:
   m_ObjectHideFlags: 0

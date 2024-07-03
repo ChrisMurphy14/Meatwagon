@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    28.06.24
+// Date last edited:    29.06.24
 // References:          https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 //////////////////////////////////////////////////
 using System;
@@ -186,10 +186,10 @@ namespace Meatwagon
 
         private void Update()
         {
-            UpdateSeletedTiles();
+            //UpdateSelectedTiles();
         }
 
-        private void UpdateSeletedTiles()
+        private void UpdateSelectedTiles()
         {
             bool selectedTilesChanged = false;
             if (Input.GetMouseButtonDown(0))
@@ -205,7 +205,7 @@ namespace Meatwagon
 
                         if (tile != _selectedStartTile && tile != _selectedGoalTile)
                         {
-                            if(_selectedStartTile == null)
+                            if (_selectedStartTile == null)
                             {
                                 _selectedStartTile = tile;
                                 _selectedStartTile.SetSelectedState(NavTile.SelectedState.Selected);
@@ -218,12 +218,12 @@ namespace Meatwagon
                                 _selectedGoalTile.SetSelectedState(NavTile.SelectedState.Selected);
 
                                 selectedTilesChanged = true;
-                            }            
+                            }
                         }
                     }
                 }
 
-                if(mouseNotOverAnyTiles)
+                if (mouseNotOverAnyTiles)
                 {
                     ResetAllTilesToDefaultSelectedState();
                 }
