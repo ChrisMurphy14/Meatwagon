@@ -33,7 +33,6 @@ public class Vehicle : MonoBehaviour
         }
     }
 
-
     private Color _defaultColor;
     private BoxCollider2D _boxCollider;
     private SpriteRenderer _sprite;
@@ -45,7 +44,6 @@ public class Vehicle : MonoBehaviour
         {
             OnLeftClicked = new UnityEvent<Vehicle>();
         }
-
         _boxCollider = GetComponent<BoxCollider2D>();
         _sprite = GetComponentInChildren<SpriteRenderer>();
         _defaultColor = _sprite.color;
