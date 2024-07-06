@@ -28,6 +28,8 @@ namespace Meatwagon
         public Material DefaultMaterial;
         public Material HighlightMaterial;
         public Material SelectedMaterial;
+        // If the tile is inhabited, it cannot be moved into by a vehicle and path detection will move around it.
+        public bool IsInhabited;
         // The radius of the area around this tile within which it will connect to other tiles when the scene starts.
         public float AdjacentTileConnectionRadius = 1.5f; 
         // The 'cost' of moving into this tile.

@@ -130,9 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10fb410198602b488b3166a09399bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedColor: {r: 0, g: 1, b: 0, a: 1}
+  InitialNavTile: {fileID: 0}
   OnLeftClicked:
     m_PersistentCalls:
       m_Calls: []
+  Speed: 3
 --- !u!61 &5105156511049856527
 BoxCollider2D:
   m_ObjectHideFlags: 0

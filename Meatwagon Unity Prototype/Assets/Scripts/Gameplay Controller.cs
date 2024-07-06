@@ -1,50 +1,103 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    03.07.24
+// Date last edited:    06.07.24
 //////////////////////////////////////////////////
-using Meatwagon;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Controls the high-level flow of gameplay within the battle scene.
-public class GameplayController : MonoBehaviour
+namespace Meatwagon
 {
-    public Button DeselectVehicleButton;
-
-    
-    private enum GameplayState
+    // Controls the high-level flow of gameplay within the battle scene.
+    public class GameplayController : MonoBehaviour
     {
-        NothingSelected, 
-        VehicleSelected
-    }
+        public Button DeselectVehicleButton;
+        public Button MoveVehicleButton;
+        public NavController SceneNavController;
 
-    private List<Vehicle> _vehicles;
-    private GameplayState _gameplayState;
-
-    private void Start()
-    {
-        DeselectVehicleButton.gameObject.SetActive(false);
-
-        _vehicles = new List<Vehicle>();
-        foreach (Vehicle vehicle in GameObject.FindObjectsOfType<Vehicle>())
+        private enum GameplayState
         {
-            vehicle.OnLeftClicked.AddListener(OnVehicleLeftClicked);
-            _vehicles.Add(vehicle);
-            Debug.Log("Vehicle " + vehicle.name + " added.");
+            NothingSelected,
+            VehicleSelected,
+            ChoosingVehicleMovement,
+            ConfirmVehicleMovment
         }
-    }
 
-    private void OnVehicleLeftClicked(Vehicle clickedVehicle)
-    {
-        //foreach(Vehicle vehicle in _vehicles)
-        //{
-        //    vehicle.IsSelected = false;
-        //}
+        private Vehicle SelectedVehicle;
+        private GameplayState _gameplayState;
+        //private List<Vehicle> _vehicles;
 
-        Debug.Log("Vehicle " + clickedVehicle.name + " was just left-clicked.");
-        clickedVehicle.IsSelected = true;
+        private void Awake()
+        {
+            _gameplayState = GameplayState.NothingSelected;
+        }
+
+        private void Start()
+        {
+            DeselectVehicleButton.onClick.AddListener(DeselectVehicle);
+            MoveVehicleButton.onClick.AddListener(DisplaySelectedVehicleMovementRange);
+            SetVehicleButtonsActiveState(false);
+
+            //_vehicles = new List<Vehicle>();
+            foreach (Vehicle vehicle in GameObject.FindObjectsOfType<Vehicle>())
+            {
+                vehicle.OnLeftClicked.AddListener(SelectVehicle);
+                //_vehicles.Add(vehicle);
+            }
+        }
+
+        private void Update()
+        {
+            //if(_gameplayState == GameplayState.ChoosingVehicleMovement)
+            //{
+            //    if (Input.GetMouseButtonDown(0))
+            //    {
+            //        NavTile mouseOvertile = SceneNavController.GetNavTileWithMouseOver();                    
+            //    }
+            //}
+        }
+
+        private void SetVehicleButtonsActiveState(bool areActive)
+        {
+            DeselectVehicleButton.gameObject.SetActive(areActive);
+            MoveVehicleButton.gameObject.SetActive(areActive);
+        }
+
+        private void SelectVehicle(Vehicle vehicle)
+        {
+            if (SelectedVehicle == null)
+            {
+                SelectedVehicle = vehicle;
+                SelectedVehicle.IsSelected = true;
+
+                SetVehicleButtonsActiveState(true);
+
+                _gameplayState = GameplayState.VehicleSelected;
+            }
+        }
+
+        private void DeselectVehicle()
+        {
+            if (SelectedVehicle != null)
+            {
+                SelectedVehicle.IsSelected = false;
+                SelectedVehicle = null;
+
+                SetVehicleButtonsActiveState(false);
+
+                SceneNavController.ResetAllTilesToDefaultSelectedState();
+
+                _gameplayState = GameplayState.NothingSelected;
+            }
+        }
+
+        private void DisplaySelectedVehicleMovementRange()
+        {
+            SceneNavController.HighlightTilesInMovementRange(SelectedVehicle.CurrentNavTile, SelectedVehicle.Speed);
+
+            _gameplayState = GameplayState.ChoosingVehicleMovement;
+        }
     }
 }

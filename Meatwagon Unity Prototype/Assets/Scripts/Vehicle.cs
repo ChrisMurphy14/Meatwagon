@@ -1,62 +1,89 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    03.07.24
+// Date last edited:    06.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Handles an individual vehicle within the battle scene.
-[RequireComponent(typeof(BoxCollider2D))]
-public class Vehicle : MonoBehaviour
+namespace Meatwagon
 {
-    public Color SelectedColor = Color.green;
-    [HideInInspector] public UnityEvent<Vehicle> OnLeftClicked;
-
-    public bool IsSelected
+    // Handles an individual vehicle within the battle scene.
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class Vehicle : MonoBehaviour
     {
-        get { return _isSelected; }
-        set 
-        {
-            _isSelected = value;
+        public Color SelectedColor = Color.green;
+        public NavTile InitialNavTile;
+        [HideInInspector] public UnityEvent<Vehicle> OnLeftClicked;
+        public int Speed = 1;
 
-            if(_isSelected)
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set
             {
-                _sprite.color = SelectedColor;
-            }
-            else
-            {
-                _sprite.color = _defaultColor;
+                _isSelected = value;
+
+                if (_isSelected)
+                {
+                    _sprite.color = SelectedColor;
+                }
+                else
+                {
+                    _sprite.color = _defaultColor;
+                }
             }
         }
-    }
 
-    private Color _defaultColor;
-    private BoxCollider2D _boxCollider;
-    private SpriteRenderer _sprite;
-    private bool _isSelected;
-
-    private void Awake()
-    {
-        if(OnLeftClicked == null)
+        public NavTile CurrentNavTile
         {
-            OnLeftClicked = new UnityEvent<Vehicle>();
-        }
-        _boxCollider = GetComponent<BoxCollider2D>();
-        _sprite = GetComponentInChildren<SpriteRenderer>();
-        _defaultColor = _sprite.color;
-    }
-
-    private void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (_boxCollider.OverlapPoint(mousePosition) && OnLeftClicked != null)
+            get { return _currentNavTile; }
+            set
             {
-                OnLeftClicked.Invoke(this);
+                if (_currentNavTile != null)
+                {
+                    _currentNavTile.IsInhabited = false;
+                }
+
+                _currentNavTile = value;
+                _currentNavTile.IsInhabited = true;
+                this.transform.position = _currentNavTile.transform.position;
+            }
+        }
+
+        private Color _defaultColor;
+        private BoxCollider2D _boxCollider;
+        private NavTile _currentNavTile;
+        private SpriteRenderer _sprite;
+        private bool _isSelected;
+
+        private void Awake()
+        {
+            if (OnLeftClicked == null)
+            {
+                OnLeftClicked = new UnityEvent<Vehicle>();
+            }
+            _boxCollider = GetComponent<BoxCollider2D>();
+            _sprite = GetComponentInChildren<SpriteRenderer>();
+            _defaultColor = _sprite.color;
+        }
+
+        private void Start()
+        {
+            CurrentNavTile = InitialNavTile; 
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (_boxCollider.OverlapPoint(mousePosition) && OnLeftClicked != null)
+                {
+                    OnLeftClicked.Invoke(this);
+                }
             }
         }
     }

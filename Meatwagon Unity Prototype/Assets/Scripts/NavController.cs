@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    29.06.24
+// Date last edited:    06.07.24
 // References:          https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 //////////////////////////////////////////////////
 using System;
@@ -10,10 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Meatwagon
 {
-    // Handles all the _navTiles within the scene and can be used to calculate the shortest paths between them.
+    // Handles all the NavTiles within the scene and can be used to calculate the shortest paths between them.
     public class NavController : MonoBehaviour
     {
         // Returns a list of NavTiles representing the shortist path from the start (first) tile to the goal (final) tile - returns null if no valid paths exist between the two.
@@ -50,7 +51,10 @@ namespace Meatwagon
                 {
                     _navTiles[i].DijkstraShortestDistance = infiniteDistance;
                 }
-                unvisitedTiles.Add(_navTiles[i]);
+                if (_navTiles[i] == startTile || !_navTiles[i].IsInhabited)
+                {
+                    unvisitedTiles.Add(_navTiles[i]);
+                }
             }
 
             List<NavTile> shortestPath = new List<NavTile>();
@@ -111,6 +115,19 @@ namespace Meatwagon
             return null;
         }
 
+        public NavTile GetNavTileWithMouseOver()
+        {
+            foreach(NavTile tile in _navTiles)
+            {
+                if(tile.IsMouseOver())
+                {
+                    return tile;
+                }
+            }
+
+            return null;
+        }
+
         public bool DoesNavTileExistInList(NavTile tile)
         {
             foreach (NavTile listTile in _navTiles)
@@ -122,6 +139,31 @@ namespace Meatwagon
             }
 
             return false;
+        }
+
+        public void ResetAllTilesToDefaultSelectedState()
+        {
+            foreach (NavTile tile in _navTiles)
+            {
+                tile.SetSelectedState(NavTile.SelectedState.Default);
+            }
+
+            _selectedStartTile = null;
+            _selectedGoalTile = null;
+        }
+
+        public void HighlightTilesInMovementRange(NavTile originTile, int range)
+        {
+            CalculateShortestTileDistancesFromOrigin(originTile);
+
+            foreach (NavTile navTile in _navTiles)
+            {
+                if (navTile.DijkstraShortestDistance <= range && !navTile.IsInhabited)
+                {
+                    navTile.SetSelectedState(NavTile.SelectedState.Highlighted);
+                }
+                //Debug.Log(navTile.name + "'s shortest distance from the origin tile is: " + navTile.DijkstraShortestDistance);
+            }
         }
 
         private List<NavTile> _navTiles;
@@ -189,6 +231,84 @@ namespace Meatwagon
             //UpdateSelectedTiles();
         }
 
+        private void CalculateShortestTileDistancesFromOrigin(NavTile originTile)
+        {
+            if (originTile == null)
+            {
+                Debug.LogWarning("The originTile argument cannot be null.");
+                return;
+            }
+
+            // Used as the default value for tiles that haven't been visited yet during the algorithm.
+            int infiniteDistance = 9999;
+
+            // Create a set of unvisited tiles, giving the start tile an initial distance of 0 and all others a distance of infinity.
+            List<NavTile> unvisitedTiles = new List<NavTile>();
+            for (int i = 0; i < _navTiles.Count; ++i)
+            {
+                if (_navTiles[i] == originTile)
+                {
+                    _navTiles[i].DijkstraShortestDistance = 0;
+                }
+                else
+                {
+                    _navTiles[i].DijkstraShortestDistance = infiniteDistance;
+                }
+
+                if (_navTiles[i] == originTile || !_navTiles[i].IsInhabited)
+                {
+                    unvisitedTiles.Add(_navTiles[i]);
+                }
+            }
+
+            // The index of the tile with the smallest distance value within the unvisted set.
+            int shortestPathTileIndex;
+            while (true)
+            {
+                // If the unvisited set is empty, the algorithm is complete.
+                if (unvisitedTiles.Any() == false)
+                {
+                    return;
+                }
+                // Else if all the remaining distances in the unvisited set are equal to infinity, no further tiles can be reached from the origin tile and the algorithm is complete.
+                bool allDistancesAreInfinite = true;
+                foreach (NavTile tile in unvisitedTiles)
+                {
+                    if (tile.DijkstraShortestDistance != infiniteDistance)
+                    {
+                        allDistancesAreInfinite = false;
+                        break;
+                    }
+                }
+                if (allDistancesAreInfinite)
+                {
+                    return;
+                }
+
+                // Get the node in the unvisited set with the shortest distance.
+                shortestPathTileIndex = 0;
+                for (int i = 0; i < unvisitedTiles.Count; i++)
+                {
+                    if (unvisitedTiles[i].DijkstraShortestDistance < unvisitedTiles[shortestPathTileIndex].DijkstraShortestDistance)
+                    {
+                        shortestPathTileIndex = i;
+                    }
+                }
+
+                // Compares the distance values of the unvisited neighbours with the distance if crossed into from the current tile and updates their distance value if the latter is smaller. 
+                foreach (NavTile connectedTile in unvisitedTiles[shortestPathTileIndex].GetConnectedTiles())
+                {
+                    if (unvisitedTiles[shortestPathTileIndex].DijkstraShortestDistance + connectedTile.TraversalCost < connectedTile.DijkstraShortestDistance)
+                    {
+                        connectedTile.DijkstraShortestDistance = unvisitedTiles[shortestPathTileIndex].DijkstraShortestDistance + connectedTile.TraversalCost;
+                    }
+                }
+
+                // Removes the current tile from the unvisited set.
+                unvisitedTiles.Remove(unvisitedTiles[shortestPathTileIndex]);
+            }
+        }
+
         private void UpdateSelectedTiles()
         {
             bool selectedTilesChanged = false;
@@ -254,17 +374,6 @@ namespace Meatwagon
 
                 }
             }
-        }
-
-        private void ResetAllTilesToDefaultSelectedState()
-        {
-            foreach (NavTile tile in _navTiles)
-            {
-                tile.SetSelectedState(NavTile.SelectedState.Default);
-            }
-
-            _selectedStartTile = null;
-            _selectedGoalTile = null;
         }
     }
 }
