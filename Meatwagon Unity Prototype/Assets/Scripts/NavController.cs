@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    06.07.24
+// Date last edited:    07.07.24
 // References:          https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 //////////////////////////////////////////////////
 using System;
@@ -25,16 +25,16 @@ namespace Meatwagon
                 Debug.LogWarning("The startTile argument cannot be the same tile as the goalTile.");
                 return null;
             }
-            if (DoesNavTileExistInList(startTile) == false)
-            {
-                Debug.LogWarning("The startTile argument provided to the GetShortestPathBetweenTiles() function doesn't exist within the _navTiles list of the NavController.");
-                return null;
-            }
-            if (DoesNavTileExistInList(goalTile) == false)
-            {
-                Debug.LogWarning("The goalTile argument provided to the GetShortestPathBetweenTiles() function doesn't exist within the _navTiles list of the NavController.");
-                return null;
-            }
+            //if (DoesNavTileExistInList(startTile) == false)
+            //{
+            //    Debug.LogWarning("The startTile argument provided to the GetShortestPathBetweenTiles() function doesn't exist within the _navTiles list of the NavController.");
+            //    return null;
+            //}
+            //if (DoesNavTileExistInList(goalTile) == false)
+            //{
+            //    Debug.LogWarning("The goalTile argument (" + goalTile.name + ") provided to the GetShortestPathBetweenTiles() function doesn't exist within the _navTiles list of the NavController.");
+            //    return null;
+            //}
 
             // Used as the default value for tiles that haven't been visited yet during the algorithm.
             int infiniteDistance = 9999;
@@ -148,8 +148,8 @@ namespace Meatwagon
                 tile.SetSelectedState(NavTile.SelectedState.Default);
             }
 
-            _selectedStartTile = null;
-            _selectedGoalTile = null;
+            //_selectedStartTile = null;
+            //_selectedGoalTile = null;
         }
 
         public void HighlightTilesInMovementRange(NavTile originTile, int range)
@@ -167,8 +167,8 @@ namespace Meatwagon
         }
 
         private List<NavTile> _navTiles;
-        private NavTile _selectedStartTile;
-        private NavTile _selectedGoalTile;
+        //private NavTile _selectedStartTile;
+        //private NavTile _selectedGoalTile;
 
         private List<NavTile> FindAllNavTilesInScene()
         {
@@ -309,71 +309,71 @@ namespace Meatwagon
             }
         }
 
-        private void UpdateSelectedTiles()
-        {
-            bool selectedTilesChanged = false;
-            if (Input.GetMouseButtonDown(0))
-            {
-                bool mouseNotOverAnyTiles = true;
+        //private void UpdateSelectedTiles()
+        //{
+        //    bool selectedTilesChanged = false;
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        bool mouseNotOverAnyTiles = true;
 
-                // Allows for two tiles to be selected at a time via mouseclick.
-                foreach (NavTile tile in _navTiles)
-                {
-                    if (tile.IsMouseOver())
-                    {
-                        mouseNotOverAnyTiles = false;
+        //        // Allows for two tiles to be selected at a time via mouseclick.
+        //        foreach (NavTile tile in _navTiles)
+        //        {
+        //            if (tile.IsMouseOver())
+        //            {
+        //                mouseNotOverAnyTiles = false;
 
-                        if (tile != _selectedStartTile && tile != _selectedGoalTile)
-                        {
-                            if (_selectedStartTile == null)
-                            {
-                                _selectedStartTile = tile;
-                                _selectedStartTile.SetSelectedState(NavTile.SelectedState.Selected);
+        //                if (tile != _selectedStartTile && tile != _selectedGoalTile)
+        //                {
+        //                    if (_selectedStartTile == null)
+        //                    {
+        //                        _selectedStartTile = tile;
+        //                        _selectedStartTile.SetSelectedState(NavTile.SelectedState.Selected);
 
-                                selectedTilesChanged = true;
-                            }
-                            else if (_selectedGoalTile == null)
-                            {
-                                _selectedGoalTile = tile;
-                                _selectedGoalTile.SetSelectedState(NavTile.SelectedState.Selected);
+        //                        selectedTilesChanged = true;
+        //                    }
+        //                    else if (_selectedGoalTile == null)
+        //                    {
+        //                        _selectedGoalTile = tile;
+        //                        _selectedGoalTile.SetSelectedState(NavTile.SelectedState.Selected);
 
-                                selectedTilesChanged = true;
-                            }
-                        }
-                    }
-                }
+        //                        selectedTilesChanged = true;
+        //                    }
+        //                }
+        //            }
+        //        }
 
-                if (mouseNotOverAnyTiles)
-                {
-                    ResetAllTilesToDefaultSelectedState();
-                }
+        //        if (mouseNotOverAnyTiles)
+        //        {
+        //            ResetAllTilesToDefaultSelectedState();
+        //        }
 
-                // If the two selected tiles have changed, calculates and highlights the shortest valid path between them
-                if (selectedTilesChanged && _selectedStartTile != null && _selectedGoalTile != null)
-                {
-                    // Resets all non-selected tiles to default.
-                    foreach (NavTile tile in _navTiles)
-                    {
-                        if (tile.GetSelectedState() != NavTile.SelectedState.Selected)
-                        {
-                            tile.SetSelectedState(NavTile.SelectedState.Default);
-                        }
-                    }
+        //        // If the two selected tiles have changed, calculates and highlights the shortest valid path between them
+        //        if (selectedTilesChanged && _selectedStartTile != null && _selectedGoalTile != null)
+        //        {
+        //            // Resets all non-selected tiles to default.
+        //            foreach (NavTile tile in _navTiles)
+        //            {
+        //                if (tile.GetSelectedState() != NavTile.SelectedState.Selected)
+        //                {
+        //                    tile.SetSelectedState(NavTile.SelectedState.Default);
+        //                }
+        //            }
 
-                    List<NavTile> shortestPathBetweenSelected = GetShortestPathBetweenTiles(_selectedStartTile, _selectedGoalTile);
-                    if (shortestPathBetweenSelected != null)
-                    {
-                        foreach (NavTile pathTile in shortestPathBetweenSelected)
-                        {
-                            if (pathTile.GetSelectedState() != NavTile.SelectedState.Selected)
-                            {
-                                pathTile.SetSelectedState(NavTile.SelectedState.Highlighted);
-                            }
-                        }
-                    }
+        //            List<NavTile> shortestPathBetweenSelected = GetShortestPathBetweenTiles(_selectedStartTile, _selectedGoalTile);
+        //            if (shortestPathBetweenSelected != null)
+        //            {
+        //                foreach (NavTile pathTile in shortestPathBetweenSelected)
+        //                {
+        //                    if (pathTile.GetSelectedState() != NavTile.SelectedState.Selected)
+        //                    {
+        //                        pathTile.SetSelectedState(NavTile.SelectedState.Highlighted);
+        //                    }
+        //                }
+        //            }
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
     }
 }
