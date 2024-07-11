@@ -1,12 +1,13 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    07.07.24
+// Date last edited:    11.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 namespace Meatwagon
 {
@@ -18,8 +19,10 @@ namespace Meatwagon
         public Button ConfirmDriveVehicleButton;
         public NavController SceneNavController;
 
+
         private enum PlayerActionType
         {
+            None,
             Drive
         }
 
@@ -35,18 +38,17 @@ namespace Meatwagon
         private Vehicle _selectedVehicle;
         private PlayerActionType _currentPlayerActionType;
         private PlayerActionState _currentPlayerActionState;
-        //private List<Vehicle> _vehicles;
 
         private void Awake()
         {
-            _currentPlayerActionType = 0;
+            _currentPlayerActionType = PlayerActionType.None;
             _currentPlayerActionState = PlayerActionState.NothingSelected;
         }
 
         private void Start()
         {
             DeselectVehicleButton.onClick.AddListener(DeselectVehicle);
-            DriveVehicleButton.onClick.AddListener(DisplayDriveOptions);
+            DriveVehicleButton.onClick.AddListener(DisplayDriveRange);
             ConfirmDriveVehicleButton.onClick.AddListener(MoveSelectedVehicleToSelectedTile);
             UpdateActionButtonsActiveStates();
 
@@ -65,24 +67,56 @@ namespace Meatwagon
                     if (Input.GetMouseButtonDown(0))
                     {
                         NavTile mouseOvertile = SceneNavController.GetNavTileWithMouseOver();
-                        List<NavTile> path = SceneNavController.GetShortestPathBetweenTiles(_selectedVehicle.CurrentNavTile, mouseOvertile);
-                        if (mouseOvertile != null && mouseOvertile != _selectedVehicle.CurrentNavTile && path != null && path.Count <= _selectedVehicle.Speed + 1)
-                        {
-                            SceneNavController.HighlightTilesInMovementRange(_selectedVehicle.CurrentNavTile, _selectedVehicle.Speed);
 
-                            foreach (NavTile tile in path)
+                        if(mouseOvertile != null && mouseOvertile != _selectedVehicle.CurrentNavTile && !mouseOvertile.IsInhabited)
+                        {
+                            List<NavTile> pathFromSelectedVehicle = SceneNavController.GetShortestPathBetweenTiles(_selectedVehicle.CurrentNavTile, mouseOvertile);
+
+                            if(pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count - 1 <= _selectedVehicle.Speed)
                             {
-                                tile.SetSelectedState(NavTile.SelectedState.Selected);
+                                Debug.Log("Great success - path length is " + (pathFromSelectedVehicle.Count - 1));
                             }
 
-                            _selectedNavTile = mouseOvertile;
-
-                            _currentPlayerActionState = PlayerActionState.ActionConfirming;
-                            UpdateActionButtonsActiveStates();
                         }
+
+
                     }
                 }
+
             }
+
+
+
+
+
+            //if (_currentPlayerActionType == PlayerActionType.Drive)
+            //{
+            //    if (_currentPlayerActionState == PlayerActionState.ActionSelected || _currentPlayerActionState == PlayerActionState.ActionConfirming)
+            //    {
+            //        if (Input.GetMouseButtonDown(0))
+            //        {
+            //            NavTile mouseOvertile = SceneNavController.GetNavTileWithMouseOver();
+            //            if (mouseOvertile != _selectedVehicle.CurrentNavTile)
+            //            {
+            //                List<NavTile> path = SceneNavController.GetShortestPathBetweenTiles(_selectedVehicle.CurrentNavTile, mouseOvertile);
+            //                if (mouseOvertile != null && path != null && path.Count <= _selectedVehicle.Speed + 1)
+            //                {
+            //                    SceneNavController.HighlightTilesInMovementRange(_selectedVehicle.CurrentNavTile, _selectedVehicle.Speed);
+
+            //                    foreach (NavTile tile in path)
+            //                    {
+            //                        tile.SetSelectedState(NavTile.SelectedState.Selected);
+            //                    }
+
+            //                    _selectedNavTile = mouseOvertile;
+
+            //                    _currentPlayerActionState = PlayerActionState.ActionConfirming;
+            //                    UpdateActionButtonsActiveStates();
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void UpdateActionButtonsActiveStates()
@@ -109,7 +143,7 @@ namespace Meatwagon
                     }
                 case PlayerActionState.ActionSelected:
                     {
-                        if(_currentPlayerActionType == PlayerActionType.Drive)
+                        if (_currentPlayerActionType == PlayerActionType.Drive)
                         {
                             DeselectVehicleButton.gameObject.SetActive(true);
 
@@ -146,10 +180,7 @@ namespace Meatwagon
                 _selectedVehicle.IsSelected = true;
 
                 _currentPlayerActionState = PlayerActionState.EntitySelected;
-                //_currentPlayerActionType = PlayerActionType.Drive;
                 UpdateActionButtonsActiveStates();
-
-                //_playerActionState = PlayerActionState.VehicleSelected;
             }
         }
 
@@ -158,23 +189,23 @@ namespace Meatwagon
             if (_selectedVehicle != null)
             {
                 _selectedVehicle.IsSelected = false;
-                _selectedVehicle = null;               
+                _selectedVehicle = null;
 
                 SceneNavController.ResetAllTilesToDefaultSelectedState();
 
+                _currentPlayerActionType = PlayerActionType.None;
                 _currentPlayerActionState = PlayerActionState.NothingSelected;
                 UpdateActionButtonsActiveStates();
             }
         }
 
-        private void DisplayDriveOptions()
+        private void DisplayDriveRange()
         {
             SceneNavController.HighlightTilesInMovementRange(_selectedVehicle.CurrentNavTile, _selectedVehicle.Speed);
 
+            _currentPlayerActionType = PlayerActionType.Drive;
             _currentPlayerActionState = PlayerActionState.ActionSelected;
             UpdateActionButtonsActiveStates();
-
-            //_playerActionState = PlayerActionState.ChoosingVehicleMovement;
         }
 
         private void MoveSelectedVehicleToSelectedTile()

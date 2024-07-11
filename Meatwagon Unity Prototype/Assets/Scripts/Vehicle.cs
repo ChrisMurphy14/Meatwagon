@@ -1,12 +1,13 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    06.07.24
+// Date last edited:    11.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
 
 namespace Meatwagon
 {
@@ -52,6 +53,7 @@ namespace Meatwagon
                 this.transform.position = _currentNavTile.transform.position;
             }
         }
+
 
         private Color _defaultColor;
         private BoxCollider2D _boxCollider;
