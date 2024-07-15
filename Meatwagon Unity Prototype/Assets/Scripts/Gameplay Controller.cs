@@ -65,17 +65,49 @@ namespace Meatwagon
                 if (_currentPlayerActionState == PlayerActionState.ActionSelected || _currentPlayerActionState == PlayerActionState.ActionConfirming)
                 {
                     if (Input.GetMouseButtonDown(0))
-                    {
+                    {                       
                         NavTile mouseOvertile = SceneNavController.GetNavTileWithMouseOver();
 
                         if(mouseOvertile != null && mouseOvertile != _selectedVehicle.CurrentNavTile && !mouseOvertile.IsInhabited)
                         {
                             List<NavTile> pathFromSelectedVehicle = SceneNavController.GetShortestPathBetweenTiles(_selectedVehicle.CurrentNavTile, mouseOvertile);
 
-                            if(pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count - 1 <= _selectedVehicle.Speed)
+                            if(pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count <= _selectedVehicle.Speed)
                             {
-                                Debug.Log("Great success - path length is " + (pathFromSelectedVehicle.Count - 1));
+                                SceneNavController.ResetAllTilesToDefaultSelectedState();
+                                SceneNavController.HighlightTilesInMovementRange(_selectedVehicle.CurrentNavTile, _selectedVehicle.Speed);
+                                
+
+                                foreach (NavTile pathTile in pathFromSelectedVehicle)
+                                {
+                                    pathTile.SetSelectedState(NavTile.SelectedState.Selected);
+                                }
+
+                                _selectedNavTile = mouseOvertile;
+
+                                _currentPlayerActionState = PlayerActionState.ActionConfirming;
+                                UpdateActionButtonsActiveStates();
                             }
+
+                            //if(pathFromSelectedVehicle == null)
+                            //{
+                            //    Debug.Log("Path is invalid.");
+                            //}
+                            //else
+                            //{
+                            //    Debug.Log("Selected path is:");
+
+                            //    foreach(NavTile tile in pathFromSelectedVehicle)
+                            //    {
+                            //        Debug.Log(tile.name);
+                            //    }
+                            //}
+
+
+                            //if(pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count - 1 <= _selectedVehicle.Speed)
+                            //{
+                            //    Debug.Log("Great success - path length is " + (pathFromSelectedVehicle.Count - 1));
+                            //}
 
                         }
 

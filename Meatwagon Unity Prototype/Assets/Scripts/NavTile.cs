@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    11.07.24
+// Date last edited:    15.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -35,8 +35,8 @@ namespace Meatwagon
         public float AdjacentTileConnectionRadius = 1.5f;
         // The value used to represent 'infinite' distance in Dijkstra's pathfinding algorithm.
         public const int DijkstraInfiniteDistance = 99999;
-        // The 'cost' of moving into this tile.
-        public int TraversalCost = 1; 
+        //// The 'cost' of moving into this tile.
+        //public int TraversalCost = 1; 
         // Used by the NavController to implement Dijkstra's pathfinding algorithm - the shortest currently-calculated distance from this tile to the starting tile
         [HideInInspector] public int DijkstraShortestDistance; 
 
