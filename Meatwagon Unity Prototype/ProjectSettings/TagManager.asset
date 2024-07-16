@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - NavTile
   - Vehicle
+  - RoadGridNavTile
+  - VehicleNavTile
   layers:
   - Default
   - TransparentFX

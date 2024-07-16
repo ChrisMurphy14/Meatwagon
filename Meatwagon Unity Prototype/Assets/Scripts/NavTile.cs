@@ -25,45 +25,25 @@ namespace Meatwagon
             Highlighted,
             Selected
         }
-                
+
+        public List<NavTile> ConnectedTiles;
         public Material DefaultMaterial;
         public Material HighlightMaterial;
         public Material SelectedMaterial;
         // If the tile is inhabited (by a vehicle or other obstacle), it cannot be moved into by a vehicle and path detection will move around it.
         public bool IsInhabited;
-        // The radius of the area around this tile within which it will connect to other tiles when the scene starts.
-        public float AdjacentTileConnectionRadius = 1.5f;
+        //// The radius of the area around this tile within which it will connect to other tiles when the scene starts.
+        //public float AdjacentTileConnectionRadius = 1.5f;
         // The value used to represent 'infinite' distance in Dijkstra's pathfinding algorithm.
         public const int DijkstraInfiniteDistance = 99999;
-        //// The 'cost' of moving into this tile.
-        //public int TraversalCost = 1; 
+        // The 'cost' of moving into this tile.
+        public int TraversalCost = 1; 
         // Used by the NavController to implement Dijkstra's pathfinding algorithm - the shortest currently-calculated distance from this tile to the starting tile
         [HideInInspector] public int DijkstraShortestDistance; 
 
         public List<NavTile> GetConnectedTiles()
         {
-            return _connectedTiles;
-        }
-
-        public List<NavTile> GetUninhabitedConnectedTiles()
-        {
-            List<NavTile> uninhabitedTiles = new List<NavTile>();
-            foreach(NavTile tile in _connectedTiles)
-            {
-                if(!tile.IsInhabited)
-                {
-                    uninhabitedTiles.Add(tile);
-                }
-            }
-
-            if(uninhabitedTiles.Count > 0)
-            {
-                return uninhabitedTiles;
-            }
-            else
-            {
-                return null;
-            }
+            return ConnectedTiles;
         }
 
         public bool IsMouseOver()
@@ -117,12 +97,11 @@ namespace Meatwagon
         }
 
 
-        private BoxCollider2D _boxCollider;
-        private List<NavTile> _connectedTiles;
-        private MeshRenderer _meshRenderer;
-        private SelectedState _selectedState;
+        protected BoxCollider2D _boxCollider;        
+        protected MeshRenderer _meshRenderer;
+        protected SelectedState _selectedState;
 
-        private void Awake()
+        protected void Awake()
         {
             _boxCollider = GetComponent<BoxCollider2D>();
             _meshRenderer = GetComponent<MeshRenderer>();
@@ -130,34 +109,34 @@ namespace Meatwagon
             DijkstraShortestDistance = DijkstraInfiniteDistance;
         }
 
-        private void Start()
-        {
-            ConnectToAdjacentTiles(AdjacentTileConnectionRadius);            
-        }
+        //protected void Start()
+        //{
+        //    ConnectToAdjacentTiles(AdjacentTileConnectionRadius);            
+        //}
 
-        private void OnDrawGizmos()
+        protected void OnDrawGizmos()
         {
-            //// Draws a blue line gizmo to show connections between tiles.
-            //if (_connectedTiles != null && _connectedTiles.Any())
-            //{
-            //    Gizmos.color = UnityEngine.Color.blue;
-            //    foreach (NavTile connectedTile in _connectedTiles)
-            //    {
-            //        Gizmos.DrawLine(this.transform.position, connectedTile.GetComponent<Transform>().position);
-            //    }
-            //}
-        }
-
-        private void ConnectToAdjacentTiles(float maxDistance)
-        {
-            _connectedTiles = new List<NavTile>();
-            foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
+            // Draws a blue line gizmo to show connections between tiles.
+            if (ConnectedTiles != null && ConnectedTiles.Any())
             {
-                if (tile != this && (tile.transform.position - this.transform.position).magnitude <= maxDistance)
+                Gizmos.color = UnityEngine.Color.blue;
+                foreach (NavTile connectedTile in ConnectedTiles)
                 {
-                    _connectedTiles.Add(tile);
+                    Gizmos.DrawLine(this.transform.position, connectedTile.GetComponent<Transform>().position);
                 }
             }
         }
+
+        //private void ConnectToAdjacentTiles(float maxDistance)
+        //{
+        //    ConnectedTiles = new List<NavTile>();
+        //    foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
+        //    {
+        //        if (tile != this && (tile.transform.position - this.transform.position).magnitude <= maxDistance)
+        //        {
+        //            ConnectedTiles.Add(tile);
+        //        }
+        //    }
+        //}
     }
 }

@@ -63,9 +63,11 @@
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\NavController.cs" />
     <Compile Include="Assets\Scripts\Vehicle.cs" />
+    <Compile Include="Assets\Scripts\AutoConnectNavTile.cs" />
     <Compile Include="Assets\Scripts\NavTileDebugText.cs" />
     <Compile Include="Assets\Scripts\Gameplay Controller.cs" />
     <Compile Include="Assets\Scripts\NavTile.cs" />
+    <Compile Include="Assets\Scripts\VehicleDebugText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

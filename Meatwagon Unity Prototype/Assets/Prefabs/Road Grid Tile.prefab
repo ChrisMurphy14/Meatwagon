@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3042389737370739619}
   - component: {fileID: 7457019990404769865}
   - component: {fileID: 8371492478276942547}
-  - component: {fileID: 987078620687826265}
   - component: {fileID: 1148160947451522752}
+  - component: {fileID: 3164834395715768952}
   m_Layer: 0
   m_Name: Road Grid Tile
-  m_TagString: NavTile
+  m_TagString: RoadGridNavTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0.75, z: 0}
-  m_LocalScale: {x: 0.9125, y: 1.40625, z: 1}
+  m_LocalScale: {x: 0.9125, y: 1.40625, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4198460447662114608}
@@ -86,25 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &987078620687826265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8073655902268570758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35baa56b8d4db144bbd52b26e05259dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DefaultMaterial: {fileID: 2100000, guid: a6c1e2136440dad4bb2e74690436b8ec, type: 2}
-  HighlightMaterial: {fileID: 2100000, guid: ff63db824f53d1a41b136cbb25f67e9a, type: 2}
-  SelectedMaterial: {fileID: 2100000, guid: 94a2ec1f87b458c4eb5b70f5b321e800, type: 2}
-  IsInhabited: 0
-  AdjacentTileConnectionRadius: 1.5
-  TraversalCost: 1
-  DijkstraShortestDistance: 0
 --- !u!61 &1148160947451522752
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,6 +131,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3164834395715768952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8073655902268570758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9f7a10deb438f44a734aa66e1a39a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultMaterial: {fileID: 2100000, guid: a6c1e2136440dad4bb2e74690436b8ec, type: 2}
+  HighlightMaterial: {fileID: 2100000, guid: ff63db824f53d1a41b136cbb25f67e9a, type: 2}
+  SelectedMaterial: {fileID: 2100000, guid: 94a2ec1f87b458c4eb5b70f5b321e800, type: 2}
+  IsInhabited: 0
+  TraversalCost: 1
+  DijkstraShortestDistance: 0
+  AdjacentTileConnectionRadius: 1.5
 --- !u!1 &8880877961054038167
 GameObject:
   m_ObjectHideFlags: 0

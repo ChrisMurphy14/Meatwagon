@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        15.06.24
-// Date last edited:    15.07.24
+// Date last edited:    16.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -22,13 +22,13 @@ namespace Meatwagon
             _parentTile = this.transform.parent.GetComponent<NavTile>();
             _textMeshPro = GetComponent<TextMeshPro>();
 
-            // DEBUG
-            _textMeshPro.text = _parentTile.name;
+            _textMeshPro.gameObject.SetActive(false);
+            // DEBUG _textMeshPro.text = _parentTile.name;
         }
 
         private void Update()
         {
-            //_textMeshPro.text = _parentTile.DijkstraShortestDistance.ToString();
+            // _textMeshPro.text = _parentTile.DijkstraShortestDistance.ToString();
         }
     }
 }

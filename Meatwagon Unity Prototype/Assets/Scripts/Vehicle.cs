@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    11.07.24
+// Date last edited:    16.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +18,10 @@ namespace Meatwagon
         public Color SelectedColor = Color.green;
         public NavTile InitialNavTile;
         [HideInInspector] public UnityEvent<Vehicle> OnLeftClicked;
+        // The distance towards the camera that the vehicle is offset from the position of its current road tile to avoid clipping.
+        public float HeightOffsetFromRoadTile = 0.1f;
+        public int ActionsPerTurn = 2;
+        public int RemainingTurnActions;
         public int Speed = 1;
 
         public bool IsSelected
@@ -50,7 +54,7 @@ namespace Meatwagon
 
                 _currentNavTile = value;
                 _currentNavTile.IsInhabited = true;
-                this.transform.position = _currentNavTile.transform.position;
+                this.transform.position = _currentNavTile.transform.position + Vector3.back * HeightOffsetFromRoadTile;
             }
         }
 
