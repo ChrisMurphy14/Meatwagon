@@ -7,6 +7,8 @@ TagManager:
   - Vehicle
   - RoadGridNavTile
   - VehicleNavTile
+  - NavTile
+  - SceneCanvas
   layers:
   - Default
   - TransparentFX

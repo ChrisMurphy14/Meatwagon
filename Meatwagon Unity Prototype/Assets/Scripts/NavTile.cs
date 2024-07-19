@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    15.07.24
+// Date last edited:    19.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -32,8 +32,6 @@ namespace Meatwagon
         public Material SelectedMaterial;
         // If the tile is inhabited (by a vehicle or other obstacle), it cannot be moved into by a vehicle and path detection will move around it.
         public bool IsInhabited;
-        //// The radius of the area around this tile within which it will connect to other tiles when the scene starts.
-        //public float AdjacentTileConnectionRadius = 1.5f;
         // The value used to represent 'infinite' distance in Dijkstra's pathfinding algorithm.
         public const int DijkstraInfiniteDistance = 99999;
         // The 'cost' of moving into this tile.
@@ -109,15 +107,11 @@ namespace Meatwagon
             DijkstraShortestDistance = DijkstraInfiniteDistance;
         }
 
-        //protected void Start()
-        //{
-        //    ConnectToAdjacentTiles(AdjacentTileConnectionRadius);            
-        //}
-
+        // DEBUG
         protected void OnDrawGizmos()
         {
             // Draws a blue line gizmo to show connections between tiles.
-            if (ConnectedTiles != null && ConnectedTiles.Any())
+            if (Input.GetKey(KeyCode.T) && ConnectedTiles != null && ConnectedTiles.Any())
             {
                 Gizmos.color = UnityEngine.Color.blue;
                 foreach (NavTile connectedTile in ConnectedTiles)
@@ -126,17 +120,5 @@ namespace Meatwagon
                 }
             }
         }
-
-        //private void ConnectToAdjacentTiles(float maxDistance)
-        //{
-        //    ConnectedTiles = new List<NavTile>();
-        //    foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
-        //    {
-        //        if (tile != this && (tile.transform.position - this.transform.position).magnitude <= maxDistance)
-        //        {
-        //            ConnectedTiles.Add(tile);
-        //        }
-        //    }
-        //}
     }
 }

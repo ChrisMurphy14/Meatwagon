@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    16.07.24
+// Date last edited:    18.07.24
 // References:          https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 //////////////////////////////////////////////////
 using System;
@@ -20,7 +20,8 @@ namespace Meatwagon
     // Handles a set of NavTiles within the scene and can be used to calculate the paths between them.
     public class NavController : MonoBehaviour
     {
-        public string NavTilesTag;
+        // The NavTiles which this specific controller handles - must be manually allocated in the editor.
+        public List<NavTile> NavTiles;
 
         // Returns a list of NavTiles representing the shortest path from the start (first) tile to the goal (final) tile - returns null if no valid paths exist between the two.
         public List<NavTile> GetShortestPathBetweenTiles(NavTile startTile, NavTile goalTile)
@@ -38,6 +39,16 @@ namespace Meatwagon
             if (startTile == goalTile)
             {
                 Debug.LogError("The startTile argument cannot be the same tile as the goalTile.");
+                return null;
+            }
+            if (!IsNavTileInNavControllerList(startTile))
+            {
+                Debug.LogError("The startTile provided is not present in NavTiles list of the NavController.");
+                return null;
+            }
+            if (!IsNavTileInNavControllerList(goalTile))
+            {
+                Debug.LogError("The goalTile provided is not present in NavTiles list of the NavController.");
                 return null;
             }
 
@@ -83,7 +94,7 @@ namespace Meatwagon
 
         public NavTile GetNavTileWithMouseOver()
         {
-            foreach (NavTile tile in _navTiles)
+            foreach (NavTile tile in NavTiles)
             {
                 if (tile.IsMouseOver())
                 {
@@ -94,9 +105,23 @@ namespace Meatwagon
             return null;
         }
 
+        // Returns whether the specified NavTile is present in the NavTiles list of the NavController.
+        public bool IsNavTileInNavControllerList(NavTile queryTile)
+        {            
+            foreach (NavTile tile in NavTiles)
+            {
+                if (queryTile == tile)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void ResetAllTilesToDefaultSelectedState()
         {
-            foreach (NavTile tile in _navTiles)
+            foreach (NavTile tile in NavTiles)
             {
                 tile.SetSelectedState(NavTile.SelectedState.Default);
             }
@@ -106,7 +131,7 @@ namespace Meatwagon
         {
             CalculateShortestTileDistancesFromOrigin(originTile);
 
-            foreach (NavTile navTile in _navTiles)
+            foreach (NavTile navTile in NavTiles)
             {
                 if (navTile.DijkstraShortestDistance <= range)
                 {
@@ -114,51 +139,35 @@ namespace Meatwagon
                 }
             }
         }
-
-
-        private List<NavTile> _navTiles;
-
-        private List<NavTile> FindAllNavTilesInSceneWithTag(string tag)
-        {
-            List<NavTile> navTiles = new List<NavTile>();
-            foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
-            {
-                if (tile.tag == tag)
-                {
-                    navTiles.Add(tile);
-                }
-            }
-
-            return navTiles;
-        }
-
-        private void Start()
-        {
-            _navTiles = FindAllNavTilesInSceneWithTag(NavTilesTag);
-        }
+                
 
         // Updates the DijkstraShortestDistance value of every NavTile to reflect its pathfinding distance from the originTile using Dijkstra's algorithm (note - automatically ignores if the originTile is inhabited.)
         private void CalculateShortestTileDistancesFromOrigin(NavTile originTile)
         {
             if (originTile == null)
             {
-                Debug.LogWarning("The originTile argument cannot be null.");
+                Debug.LogError("The originTile argument cannot be null.");
+                return;
+            }
+            if(!IsNavTileInNavControllerList(originTile))
+            {
+                Debug.LogError("The originTile provided is not present in NavTiles list of the NavController.");
                 return;
             }
 
             // Create a set of unvisited tiles, giving the start tile an initial distance of 0 and all others a distance of infinity.
             List<NavTile> unvisitedTiles = new List<NavTile>();
-            for (int i = 0; i < _navTiles.Count; ++i)
+            for (int i = 0; i < NavTiles.Count; ++i)
             {
-                if (_navTiles[i] == originTile)
+                if (NavTiles[i] == originTile)
                 {
-                    _navTiles[i].DijkstraShortestDistance = 0;
+                    NavTiles[i].DijkstraShortestDistance = 0;
                 }
                 else
                 {
-                    _navTiles[i].DijkstraShortestDistance = NavTile.DijkstraInfiniteDistance;
+                    NavTiles[i].DijkstraShortestDistance = NavTile.DijkstraInfiniteDistance;
                 }
-                unvisitedTiles.Add(_navTiles[i]);
+                unvisitedTiles.Add(NavTiles[i]);
             }
 
             // The index of the tile with the smallest distance value within the unvisted set.

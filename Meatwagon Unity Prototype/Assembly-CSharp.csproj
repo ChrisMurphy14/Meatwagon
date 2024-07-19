@@ -60,14 +60,16 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.26f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GameEntity.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\NavController.cs" />
-    <Compile Include="Assets\Scripts\Vehicle.cs" />
+    <Compile Include="Assets\Scripts\EntityAction.cs" />
+    <Compile Include="Assets\Scripts\MoveEntityAction.cs" />
     <Compile Include="Assets\Scripts\AutoConnectNavTile.cs" />
     <Compile Include="Assets\Scripts\NavTileDebugText.cs" />
     <Compile Include="Assets\Scripts\Gameplay Controller.cs" />
     <Compile Include="Assets\Scripts\NavTile.cs" />
-    <Compile Include="Assets\Scripts\VehicleDebugText.cs" />
+    <Compile Include="Assets\Scripts\GameEntityDebugText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
