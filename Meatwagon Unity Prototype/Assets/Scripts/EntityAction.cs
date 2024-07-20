@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        18.07.24
-// Date last edited:    19.07.24
+// Date last edited:    20.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +32,6 @@ namespace Meatwagon
         // The specific nav controller used to handle the set of nav tiles associated with the entity performing this action.
         protected NavController _navController;        
         
-
         protected void Start()
         {
             StartActionButton.onClick.AddListener(StartAction);
@@ -40,8 +39,7 @@ namespace Meatwagon
 
             StartActionButton.gameObject.SetActive(true);
             ConfirmActionButton.gameObject.SetActive(false);
-        }
-               
+        }               
 
         // Called when the player clicks the button that says they want to begin proceeding with this specific action.
         protected virtual void StartAction()
@@ -54,7 +52,7 @@ namespace Meatwagon
         {
             _gameEntity.RemainingTurnActions--;
 
-            GameObject.FindObjectOfType<GameplayController>().DeselectGameEntity();
+            GameObject.FindObjectOfType<GameplayController>().EndGameEntityAction();
         }
     }
 }

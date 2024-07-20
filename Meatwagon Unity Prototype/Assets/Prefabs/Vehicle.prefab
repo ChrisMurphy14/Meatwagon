@@ -277,8 +277,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8697317381954270348}
-  - component: {fileID: 9149074353880210361}
   - component: {fileID: 5105156511049856527}
+  - component: {fileID: 6278655805585065512}
   m_Layer: 0
   m_Name: Vehicle
   m_TagString: Vehicle
@@ -303,29 +303,6 @@ Transform:
   - {fileID: 475491956829629189}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9149074353880210361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8706459991376966868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10fb410198602b488b3166a09399bf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveEntityActionPrefab: {fileID: 0}
-  NavigationController: {fileID: 0}
-  InitialNavTile: {fileID: 0}
-  OnLeftClicked:
-    m_PersistentCalls:
-      m_Calls: []
-  SelectedColor: {r: 0, g: 1, b: 0, a: 1}
-  HeightOffsetFromNavTile: 0.1
-  ActionsPerTurn: 2
-  RemainingTurnActions: 0
-  Speed: 3
 --- !u!61 &5105156511049856527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -371,3 +348,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6278655805585065512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8706459991376966868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d11a1cecee54dd64faf8cff728dae4a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveEntityActionPrefab: {fileID: 9027800174350238427, guid: edc761ebb6471164f930a8de8d455148, type: 3}
+  NavigationController: {fileID: 0}
+  InitialNavTile: {fileID: 0}
+  OnLeftClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  SelectedColor: {r: 0, g: 1, b: 0, a: 1}
+  HeightOffsetFromNavTile: 0.1
+  ActionsPerTurn: 2
+  RemainingTurnActions: 0
+  Speed: 1
+  GameName: GameEntity
+  ZoomedVehicleNavController: {fileID: 0}

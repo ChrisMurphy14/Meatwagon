@@ -27,7 +27,9 @@ namespace Meatwagon
         public float HeightOffsetFromNavTile = 0.1f;
         public int ActionsPerTurn = 2;
         [HideInInspector] public int RemainingTurnActions;
-        public int Speed = 1;        
+        public int Speed = 1;
+        // The name of the entity as displayed in the game to the player.
+        public string GameName = "GameEntity";
 
         public NavTile CurrentNavTile
         {
@@ -71,14 +73,14 @@ namespace Meatwagon
         }
                
         
-        private BoxCollider2D _boxCollider;       
-        private EntityAction _moveEntityAction;
-        private NavTile _currentNavTile;
-        private SpriteRenderer _sprite;
-        private Color _defaultColor;
-        private bool _isSelected;
+        protected BoxCollider2D _boxCollider;       
+        protected EntityAction _moveEntityAction;
+        protected NavTile _currentNavTile;
+        protected SpriteRenderer _sprite;
+        protected Color _defaultColor;
+        protected bool _isSelected;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (OnLeftClicked == null)
             {
@@ -89,12 +91,12 @@ namespace Meatwagon
             _defaultColor = _sprite.color;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             CurrentNavTile = InitialNavTile; 
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -107,7 +109,7 @@ namespace Meatwagon
         }
 
         // Uses the entity action prefabs to spawn the entity action buttons & scripts used to control the entity while it's selected.
-        private void InstantiateEntityActions()
+        protected virtual void InstantiateEntityActions()
         {
             // Parents the entity action object to the scene canvas so that the buttons are displayed properly.
             _moveEntityAction = Instantiate(MoveEntityActionPrefab, GameObject.FindGameObjectWithTag("SceneCanvas").transform).GetComponent<EntityAction>();
@@ -115,7 +117,7 @@ namespace Meatwagon
         }
 
         // Destroys any instantiated entity action objects.
-        private void DestroyEntityActions()
+        protected virtual void DestroyEntityActions()
         {
             if (_moveEntityAction != null)
             {
