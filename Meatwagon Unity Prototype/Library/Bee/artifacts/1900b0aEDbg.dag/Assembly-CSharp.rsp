@@ -363,6 +363,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.26f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/AutoConnectNavTile.cs"
 "Assets/Scripts/Character.cs"
+"Assets/Scripts/DriveEntityAction.cs"
 "Assets/Scripts/EntityAction.cs"
 "Assets/Scripts/GameEntity.cs"
 "Assets/Scripts/GameEntityDebugText.cs"

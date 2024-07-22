@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        18.07.24
-// Date last edited:    20.07.24
+// Date last edited:    22.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +20,22 @@ namespace Meatwagon
         public Button StartActionButton;
         public Button ConfirmActionButton;     
 
-        public void Initialize(NavController navController, GameEntity entity)
+        public bool AreButtonsInteractable
+        {
+            get
+            {
+                return _areButtonsInteractable;
+            }
+            set
+            {
+                _areButtonsInteractable = value;
+
+                StartActionButton.interactable = _areButtonsInteractable;
+                ConfirmActionButton.interactable = _areButtonsInteractable;
+            }
+        }
+
+        public virtual void Initialize(NavController navController, GameEntity entity)
         {
             this._navController = navController;
             this._gameEntity = entity;
@@ -30,9 +45,11 @@ namespace Meatwagon
         // The entity (character, vehicle, etc.) that is performing this action.
         protected GameEntity _gameEntity;
         // The specific nav controller used to handle the set of nav tiles associated with the entity performing this action.
-        protected NavController _navController;        
+        protected NavController _navController;
         
-        protected void Start()
+        protected bool _areButtonsInteractable = true;
+        
+        protected virtual void Start()
         {
             StartActionButton.onClick.AddListener(StartAction);
             ConfirmActionButton.onClick.AddListener(ConfirmAction);

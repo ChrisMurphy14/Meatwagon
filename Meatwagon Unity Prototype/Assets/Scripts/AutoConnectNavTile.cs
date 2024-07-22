@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        16.07.24
-// Date last edited:    16.07.24
+// Date last edited:    22.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +20,16 @@ namespace Meatwagon
         public float AdjacentTileConnectionRadius = 1.5f;
 
 
+        protected override void Awake()
+        {
+            if (tag == "Untagged")
+            {
+                Debug.LogError("All instances of AutoConnectNavTile must have a distinctive tag in order to filter which of the other tiles in the scene to connect to.");
+            }
+
+            base.Awake();
+        }
+
         protected void Start()
         {
             ConnectToAdjacentTiles(AdjacentTileConnectionRadius);
@@ -30,7 +40,7 @@ namespace Meatwagon
             ConnectedTiles = new List<NavTile>();
             foreach (NavTile tile in GameObject.FindObjectsOfType<NavTile>())
             {
-                if (tile != this && (tile.transform.position - this.transform.position).magnitude <= maxDistance)
+                if (tile != this && tile.tag == this.tag && (tile.transform.position - this.transform.position).magnitude <= maxDistance)
                 {
                     ConnectedTiles.Add(tile);
                 }

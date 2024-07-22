@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    20.07.24
+// Date last edited:    22.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +14,18 @@ namespace Meatwagon
     public class Vehicle : GameEntity
     {
         // The NavController used to handle the 'zoomed' view of the vehicle and the character GameEntities inhabiting it.
-        public NavController VehicleViewNavController;        
+        public NavController VehicleViewNavController;
+        // The tile which must be inhabited by a character in order to for the vehicle to use the 'Drive' action.
+        public NavTile DriverTile;
+
+        public bool IsDriverTileInhabited()
+        {
+            return DriverTile.IsInhabited;
+        }
+
+        //public int GetDriverSpeed()
+        //{
+            
+        //}
     }
 }

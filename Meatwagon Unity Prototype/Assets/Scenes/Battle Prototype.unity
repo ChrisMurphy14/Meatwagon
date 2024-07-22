@@ -324,6 +324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -332,6 +336,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+--- !u!114 &158016849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7815159200723944725, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+  m_PrefabInstance: {fileID: 276614002846586748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35baa56b8d4db144bbd52b26e05259dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &175202231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -383,6 +398,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -443,6 +462,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -685,6 +708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -709,6 +736,10 @@ PrefabInstance:
       propertyPath: GameName
       value: Rustbucket
       objectReference: {fileID: 0}
+    - target: {fileID: 6278655805585065512, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
+      propertyPath: DriverTile
+      value: 
+      objectReference: {fileID: 1893206279}
     - target: {fileID: 6278655805585065512, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
       propertyPath: InitialNavTile
       value: 
@@ -768,6 +799,10 @@ PrefabInstance:
     - target: {fileID: 8706459991376966868, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
       propertyPath: m_Name
       value: Rustbucket Vehicle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706459991376966868, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 9149074353880210361, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
       propertyPath: Speed
@@ -857,6 +892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -916,6 +955,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1428,6 +1471,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1508,6 +1555,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1710,6 +1761,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1769,6 +1824,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2072,6 +2131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2137,6 +2200,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2200,6 +2267,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2271,6 +2342,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2434,6 +2509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2493,6 +2572,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2848,6 +2931,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2998,6 +3085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3057,6 +3148,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3186,6 +3281,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3257,6 +3356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3316,6 +3419,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3494,6 +3601,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1200558137367569294, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282585125175428298, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2081134565041668148, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2130449915096103046, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
       propertyPath: m_Name
       value: Rustbucket Vehicle View
@@ -3501,6 +3620,14 @@ PrefabInstance:
     - target: {fileID: 2130449915096103046, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070405120232338103, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3071492323271657101, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4010177456723986585, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3541,6 +3668,50 @@ PrefabInstance:
     - target: {fileID: 4010177456723986585, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391839609914821260, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4798398782797147133, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060153418086632784, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5344776370653075666, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579627554351907624, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724896232843910704, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7129650489999722465, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7914688631197519881, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043910388550492098, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425830330318570855, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 9105118345532158955, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3664,6 +3835,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3729,6 +3904,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3788,6 +3967,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3849,6 +4032,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3908,6 +4095,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4453,6 +4644,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9f7a10deb438f44a734aa66e1a39a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1893206279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7815159200723944725, guid: bc2c3d108656d0e4f83c4d09c3dd4fe1, type: 3}
+  m_PrefabInstance: {fileID: 1304477795}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35baa56b8d4db144bbd52b26e05259dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1919443914 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3164834395715768952, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
@@ -4598,6 +4800,10 @@ PrefabInstance:
     - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
       propertyPath: m_Name
       value: Road Grid Tile (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4924,6 +5130,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Grid Tile (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8073655902268570758, guid: 0451f4d235df3e64da322ad8308d2425, type: 3}
+      propertyPath: m_TagString
+      value: RoadGridNavTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5125,6 +5335,10 @@ PrefabInstance:
       value: Pursuer
       objectReference: {fileID: 0}
     - target: {fileID: 6278655805585065512, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
+      propertyPath: DriverTile
+      value: 
+      objectReference: {fileID: 158016849}
+    - target: {fileID: 6278655805585065512, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
       propertyPath: InitialNavTile
       value: 
       objectReference: {fileID: 1718475108}
@@ -5183,6 +5397,10 @@ PrefabInstance:
     - target: {fileID: 8706459991376966868, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
       propertyPath: m_Name
       value: Pursuer Vehicle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706459991376966868, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 9149074353880210361, guid: a791351b3b01b874b8a210dae1c7c8f8, type: 3}
       propertyPath: GameName

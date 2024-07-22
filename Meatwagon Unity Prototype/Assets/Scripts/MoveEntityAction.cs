@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        18.07.24
-// Date last edited:    19.07.24
+// Date last edited:    22.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace Meatwagon
     {
         protected NavTile _selectedNavTile;
         protected bool _isPlayerChoosingPath = false;
+        protected int _moveSpeed;
 
         protected void Update()
         {
@@ -25,7 +26,7 @@ namespace Meatwagon
                 if (mouseOvertile != null && mouseOvertile != _gameEntity.CurrentNavTile)
                 {
                     List<NavTile> pathFromSelectedVehicle = _navController.GetShortestPathBetweenTiles(_gameEntity.CurrentNavTile, mouseOvertile);
-                    if (pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count <= _gameEntity.Speed + 1)
+                    if (pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count <= _moveSpeed + 1)
                     {
                         _navController.ResetAllTilesToDefaultSelectedState();
                         _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _gameEntity.Speed);
@@ -45,7 +46,9 @@ namespace Meatwagon
         // Called when the player clicks the button that says they want to begin proceeding with this specific action.
         protected override void StartAction()
         {
-            _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _gameEntity.Speed);
+            _moveSpeed = _gameEntity.Speed;
+
+            _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _moveSpeed);
             _isPlayerChoosingPath = true;
 
             base.StartAction();

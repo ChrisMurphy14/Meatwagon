@@ -63,7 +63,6 @@ namespace Meatwagon
             // Creates a path list by starting from the goal tile and iterating backwards through each connected tile with the shortest Dijkstra distance value until reaching the start tile.
             List<NavTile> shortestPath = new List<NavTile>();
             NavTile shortestPathTile = goalTile;
-            int pathLength = goalTile.DijkstraShortestDistance;
             while (true)
             {
                 shortestPath.Insert(0, shortestPathTile);

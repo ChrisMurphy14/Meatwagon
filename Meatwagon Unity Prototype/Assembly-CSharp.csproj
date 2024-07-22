@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\NavController.cs" />
     <Compile Include="Assets\Scripts\EntityAction.cs" />
     <Compile Include="Assets\Scripts\Vehicle.cs" />
+    <Compile Include="Assets\Scripts\DriveEntityAction.cs" />
     <Compile Include="Assets\Scripts\MoveEntityAction.cs" />
     <Compile Include="Assets\Scripts\AutoConnectNavTile.cs" />
     <Compile Include="Assets\Scripts\NavTileDebugText.cs" />

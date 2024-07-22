@@ -99,7 +99,7 @@ namespace Meatwagon
         protected MeshRenderer _meshRenderer;
         protected SelectedState _selectedState;
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             _boxCollider = GetComponent<BoxCollider2D>();
             _meshRenderer = GetComponent<MeshRenderer>();
