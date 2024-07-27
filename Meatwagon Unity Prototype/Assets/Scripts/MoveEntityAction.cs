@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        18.07.24
-// Date last edited:    22.07.24
+// Date last edited:    27.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace Meatwagon
                     if (pathFromSelectedVehicle != null && pathFromSelectedVehicle.Count <= _moveSpeed + 1)
                     {
                         _navController.ResetAllTilesToDefaultSelectedState();
-                        _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _gameEntity.Speed);
+                        _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _moveSpeed);
                         foreach (NavTile pathTile in pathFromSelectedVehicle)
                         {
                             pathTile.SetSelectedState(NavTile.SelectedState.Selected);
@@ -44,14 +44,14 @@ namespace Meatwagon
         }
 
         // Called when the player clicks the button that says they want to begin proceeding with this specific action.
-        protected override void StartAction()
+        protected override void BeginAction()
         {
             _moveSpeed = _gameEntity.Speed;
 
             _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _moveSpeed);
             _isPlayerChoosingPath = true;
 
-            base.StartAction();
+            base.BeginAction();
         }
 
         // Called when the player clicks the button that confirms they want to complete this action.

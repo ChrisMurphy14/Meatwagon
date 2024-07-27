@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        18.07.24
-// Date last edited:    19.07.24
+// Date last edited:    27.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -22,24 +22,42 @@ namespace Meatwagon
                 return;
             }
 
-            AreButtonsInteractable = _vehicleEntity.IsDriverTileInhabited();
+            _vehicleDriver = null;
+            if (_vehicleEntity.DriverTile.IsInhabited)
+            {
+                _vehicleDriver = _vehicleEntity.DriverTile.GetInhabitant();
+            }
+
+            AreButtonsInteractable = false;
+            if (_vehicleEntity.RemainingTurnActions > 0 && _vehicleDriver != null && _vehicleDriver.RemainingTurnActions > 0)
+            {
+                AreButtonsInteractable = true;
+            }
 
             base.Initialize(navController, _vehicleEntity);
         }
-        
 
+
+        protected GameEntity _vehicleDriver;
         protected Vehicle _vehicleEntity;
 
         // Called when the player clicks the button that says they want to begin proceeding with this specific action.
-        protected override void StartAction()
+        protected override void BeginAction()
         {
-            //                _moveSpeed = _vehicleEntity.Speed + ;
-            
+            _moveSpeed = _vehicleEntity.Speed + _vehicleDriver.Speed;
 
             _navController.HighlightTilesInMovementRange(_gameEntity.CurrentNavTile, _moveSpeed);
             _isPlayerChoosingPath = true;
 
-            base.StartAction();
+            BeginActionButton.gameObject.SetActive(false);
+        }
+
+        // Called when the player clicks the button that confirms they want to complete this action.
+        protected override void ConfirmAction()
+        {
+            _vehicleDriver.RemainingTurnActions--;
+
+            base.ConfirmAction();
         }
     }
 }

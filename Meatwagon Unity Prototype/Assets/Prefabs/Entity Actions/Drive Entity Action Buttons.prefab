@@ -564,5 +564,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca726cdbd64a1e44a86ed7e49a9066d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartActionButton: {fileID: 9019467070428163480}
+  BeginActionButton: {fileID: 9019467070428163480}
   ConfirmActionButton: {fileID: 3515794370055390818}

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    22.07.24
+// Date last edited:    27.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -18,10 +18,7 @@ namespace Meatwagon
         // The tile which must be inhabited by a character in order to for the vehicle to use the 'Drive' action.
         public NavTile DriverTile;
 
-        public bool IsDriverTileInhabited()
-        {
-            return DriverTile.IsInhabited;
-        }
+        
 
         //public int GetDriverSpeed()
         //{

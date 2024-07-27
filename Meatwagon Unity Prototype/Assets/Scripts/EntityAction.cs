@@ -17,7 +17,7 @@ namespace Meatwagon
     // The base class used to handle the UI buttons and entity behaviour of an action that they can take (e.g. 'Move', 'Attack', etc.).
     public class EntityAction : MonoBehaviour
     {
-        public Button StartActionButton;
+        public Button BeginActionButton;
         public Button ConfirmActionButton;     
 
         public bool AreButtonsInteractable
@@ -30,7 +30,7 @@ namespace Meatwagon
             {
                 _areButtonsInteractable = value;
 
-                StartActionButton.interactable = _areButtonsInteractable;
+                BeginActionButton.interactable = _areButtonsInteractable;
                 ConfirmActionButton.interactable = _areButtonsInteractable;
             }
         }
@@ -51,17 +51,17 @@ namespace Meatwagon
         
         protected virtual void Start()
         {
-            StartActionButton.onClick.AddListener(StartAction);
+            BeginActionButton.onClick.AddListener(BeginAction);
             ConfirmActionButton.onClick.AddListener(ConfirmAction);
 
-            StartActionButton.gameObject.SetActive(true);
+            BeginActionButton.gameObject.SetActive(true);
             ConfirmActionButton.gameObject.SetActive(false);
         }               
 
         // Called when the player clicks the button that says they want to begin proceeding with this specific action.
-        protected virtual void StartAction()
+        protected virtual void BeginAction()
         {
-            StartActionButton.gameObject.SetActive(false);
+            BeginActionButton.gameObject.SetActive(false);
         }
 
         // Called when the player clicks the button that confirms they want to complete this action.

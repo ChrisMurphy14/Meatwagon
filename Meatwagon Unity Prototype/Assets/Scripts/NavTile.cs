@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    19.07.24
+// Date last edited:    27.07.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +42,24 @@ namespace Meatwagon
         public List<NavTile> GetConnectedTiles()
         {
             return ConnectedTiles;
+        }
+
+        // Returns any GameEntity that is inhabiting this NavTile - if there currently isn't one, returns null.
+        public GameEntity GetInhabitant()
+        {
+            if(IsInhabited)
+            {
+                // The 'include inactive gameobjects' parameter of the FindObjectsOfType() function is set to 'true' because otherwise this function would return null for any NavController tiles where the NavController is currently inactive.
+                foreach (GameEntity gameEntity in GameObject.FindObjectsOfType<GameEntity>(true))
+                {
+                    if(gameEntity.CurrentNavTile == this)
+                    {
+                        return gameEntity;
+                    }
+                }    
+            }
+
+            return null;
         }
 
         public bool IsMouseOver()
@@ -105,6 +123,15 @@ namespace Meatwagon
             _meshRenderer = GetComponent<MeshRenderer>();
 
             DijkstraShortestDistance = DijkstraInfiniteDistance;
+        }
+
+        // DEBUG
+        protected virtual void Update()
+        {
+            if (IsMouseOver() && Input.GetKeyDown(KeyCode.I) && IsInhabited)
+            {
+                Debug.Log("NavTile " + name + " is currently inhabited by the GameEntity " + GetInhabitant().name);
+            }
         }
 
         // DEBUG
