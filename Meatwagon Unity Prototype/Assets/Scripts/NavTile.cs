@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    27.07.24
+// Date last edited:    04.08.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +14,6 @@ using UnityEngine.EventSystems;
 namespace Meatwagon
 {    
     [RequireComponent(typeof(BoxCollider2D))]
-    [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(Transform))]
     // A tile within the scene which a character can inhabit as well as navigating to and from.
     public class NavTile : MonoBehaviour
@@ -86,21 +85,21 @@ namespace Meatwagon
             {
                 case SelectedState.Default:
                     {
-                        _meshRenderer.material = DefaultMaterial;
+                        _spriteRenderer.material = DefaultMaterial;
                         _selectedState = SelectedState.Default;
 
                         break;
                     }
                 case SelectedState.Highlighted:
                     {
-                        _meshRenderer.material = HighlightMaterial;
+                        _spriteRenderer.material = HighlightMaterial;
                         _selectedState = SelectedState.Highlighted;
 
                         break;
                     }
                 case SelectedState.Selected:
                     {
-                        _meshRenderer.material = SelectedMaterial;
+                        _spriteRenderer.material = SelectedMaterial;
                         _selectedState = SelectedState.Selected;
 
                         break;
@@ -114,13 +113,13 @@ namespace Meatwagon
 
 
         protected BoxCollider2D _boxCollider;        
-        protected MeshRenderer _meshRenderer;
+        protected SpriteRenderer _spriteRenderer;
         protected SelectedState _selectedState;
 
         protected virtual void Awake()
         {
             _boxCollider = GetComponent<BoxCollider2D>();
-            _meshRenderer = GetComponent<MeshRenderer>();
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
             DijkstraShortestDistance = DijkstraInfiniteDistance;
         }
