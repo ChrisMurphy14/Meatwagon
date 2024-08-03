@@ -1,0 +1,6 @@
+PHASE 1:
+- Create a fully-functional battle prototype between 2 player-controlled teams - placeholder graphics
+- Implement touchscreen controls and optimise game to make the best possible use of them
+- Create final graphics for prototype battle so I can start promoting the game and have it look good
+- From this point, start doing weekly updates and getting the word out to as many eyes as possible
+- Implement all other 'juice' elements (sound effects, music, etc.) as well as AI-control for the opposing team and release as a free demo for promotion
