@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    20.07.24
+// Date last edited:    05.08.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace Meatwagon
         public TextMeshPro TurnCounterDisplay;
         public TextMeshPro SelectedEntityNameDisplay;
         public TextMeshPro SelectedEntitySpeedDisplay;
-        public TextMeshPro VehicleViewVehicleNameDisplay;
+        //public TextMeshPro VehicleViewVehicleNameDisplay;
 
         // Call once a GameEntity finishes taking an action in order to ready it for any remaining actions while keeping it selected.
         public void EndGameEntityAction()
@@ -79,7 +79,7 @@ namespace Meatwagon
             RoadGridViewButton.onClick.AddListener(ActivateRoadGridView);
             RoadGridViewButton.gameObject.SetActive(false);
 
-            VehicleViewVehicleNameDisplay.gameObject.SetActive(false);
+            //VehicleViewVehicleNameDisplay.gameObject.SetActive(false);
             DisableSelectedGameEntityStatDisplays();
 
             StartNewTurn();
@@ -92,6 +92,9 @@ namespace Meatwagon
 
         private void Update()
         {
+            //if(Input.GetMouseButtonDown(0))
+
+
             // DEBUG
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -131,7 +134,7 @@ namespace Meatwagon
             {
                 SetActiveNavController(RoadGridNavController);
 
-                VehicleViewVehicleNameDisplay.gameObject.SetActive(false);
+                //VehicleViewVehicleNameDisplay.gameObject.SetActive(false);
                 RoadGridViewButton.gameObject.SetActive(false);
             }
         }
@@ -159,8 +162,8 @@ namespace Meatwagon
 
             VehicleViewButton.gameObject.SetActive(false);
             RoadGridViewButton.gameObject.SetActive(true);
-            VehicleViewVehicleNameDisplay.gameObject.SetActive(true);
-            VehicleViewVehicleNameDisplay.text = vehicle.GameName;
+            //VehicleViewVehicleNameDisplay.gameObject.SetActive(true);
+            //VehicleViewVehicleNameDisplay.text = vehicle.GameName;
         }
 
         private void SelectGameEntity(GameEntity gameEntity)

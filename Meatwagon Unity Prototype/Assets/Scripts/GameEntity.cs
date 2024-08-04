@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author/s:            Chris Murphy
 // Date created:        03.07.24
-// Date last edited:    19.07.24
+// Date last edited:    05.08.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -21,8 +21,7 @@ namespace Meatwagon
         public NavController NavigationController;    
         // The initial navigation tile which the entity will inhabit on scene start.
         public NavTile InitialNavTile;
-        [HideInInspector] public UnityEvent<GameEntity> OnLeftClicked;
-        public Color SelectedColor = Color.green;
+        [HideInInspector] public UnityEvent<GameEntity> OnLeftClicked;        
         // The distance towards the camera that the entity is offset from the position of its current NavTile to avoid clipping.
         public float HeightOffsetFromNavTile = 0.1f;
         public int ActionsPerTurn = 2;
@@ -61,16 +60,21 @@ namespace Meatwagon
                         InstantiateEntityActions();
                     }
 
-                    _sprite.color = SelectedColor;
+                    CurrentNavTile.SetSelectedState(NavTile.SelectedState.Selected);
                 }
                 else
                 {
                     DestroyEntityActions();
 
-                    _sprite.color = _defaultColor;
+                    CurrentNavTile.SetSelectedState(NavTile.SelectedState.Default);
                 }
             }
         }
+
+        //public bool IsPerformingAction()
+        //{
+
+        //}
                
         
         protected BoxCollider2D _boxCollider;       

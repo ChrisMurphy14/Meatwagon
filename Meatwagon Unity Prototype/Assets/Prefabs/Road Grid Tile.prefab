@@ -177,9 +177,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectedTiles: []
-  DefaultMaterial: {fileID: 2100000, guid: a6c1e2136440dad4bb2e74690436b8ec, type: 2}
-  HighlightMaterial: {fileID: 2100000, guid: ff63db824f53d1a41b136cbb25f67e9a, type: 2}
-  SelectedMaterial: {fileID: 2100000, guid: 94a2ec1f87b458c4eb5b70f5b321e800, type: 2}
+  DefaultSprite: {fileID: 21300000, guid: ae4cce8fdc4b73c40b13906ffff47ef3, type: 3}
+  HighlightedSprite: {fileID: 21300000, guid: 6aa85863240d91c46afb41e1c5042fc1, type: 3}
+  SelectedSprite: {fileID: 21300000, guid: bbf2b10685523854a8bdadc321439fdb, type: 3}
   IsInhabited: 0
   TraversalCost: 1
   DijkstraShortestDistance: 0

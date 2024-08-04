@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////
 // Author:              Chris Murphy
 // Date created:        13.06.24
-// Date last edited:    04.08.24
+// Date last edited:    05.08.24
 //////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
@@ -26,9 +26,9 @@ namespace Meatwagon
         }
 
         public List<NavTile> ConnectedTiles;
-        public Material DefaultMaterial;
-        public Material HighlightMaterial;
-        public Material SelectedMaterial;
+        public Sprite DefaultSprite;
+        public Sprite HighlightedSprite;
+        public Sprite SelectedSprite;
         // If the tile is inhabited (by a vehicle or other obstacle), it cannot be moved into by a vehicle and path detection will move around it.
         public bool IsInhabited;
         // The value used to represent 'infinite' distance in Dijkstra's pathfinding algorithm.
@@ -85,21 +85,21 @@ namespace Meatwagon
             {
                 case SelectedState.Default:
                     {
-                        _spriteRenderer.material = DefaultMaterial;
+                        _spriteRenderer.sprite = DefaultSprite;
                         _selectedState = SelectedState.Default;
 
                         break;
                     }
                 case SelectedState.Highlighted:
                     {
-                        _spriteRenderer.material = HighlightMaterial;
+                        _spriteRenderer.sprite = HighlightedSprite;
                         _selectedState = SelectedState.Highlighted;
 
                         break;
                     }
                 case SelectedState.Selected:
                     {
-                        _spriteRenderer.material = SelectedMaterial;
+                        _spriteRenderer.sprite = SelectedSprite;
                         _selectedState = SelectedState.Selected;
 
                         break;

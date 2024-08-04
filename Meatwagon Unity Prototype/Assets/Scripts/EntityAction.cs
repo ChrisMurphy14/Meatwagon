@@ -35,6 +35,11 @@ namespace Meatwagon
             }
         }
 
+        //public bool IsActionBeingPerformed()
+        //{
+
+        //}
+
         public virtual void Initialize(NavController navController, GameEntity entity)
         {
             this._navController = navController;
@@ -45,9 +50,9 @@ namespace Meatwagon
         // The entity (character, vehicle, etc.) that is performing this action.
         protected GameEntity _gameEntity;
         // The specific nav controller used to handle the set of nav tiles associated with the entity performing this action.
-        protected NavController _navController;
-        
+        protected NavController _navController;        
         protected bool _areButtonsInteractable = true;
+        //protected bool _isActionBeingPerformed = false;
         
         protected virtual void Start()
         {
@@ -62,6 +67,8 @@ namespace Meatwagon
         protected virtual void BeginAction()
         {
             BeginActionButton.gameObject.SetActive(false);
+
+            //_isActionBeingPerformed = true;
         }
 
         // Called when the player clicks the button that confirms they want to complete this action.
